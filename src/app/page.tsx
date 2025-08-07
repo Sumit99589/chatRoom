@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from "react";
 import { Socket,io } from "socket.io-client";
 
@@ -11,6 +12,7 @@ export default function Home() {
   const [newRoom, setNewRoom] = useState<string>("")
   const [isPrivate, setIsPrivate] = useState<Boolean>(false)
   const [password, setPassword] = useState<string>("")
+  const router = useRouter()
 
   useEffect(()=>{
 
@@ -44,6 +46,8 @@ export default function Home() {
       const data = await response.json();
       console.log(data);
 
+      router.push(`/RoomChat/${room}`)
+
     } catch (error) {
       console.error("Error fetching room:", error);
     }
@@ -61,9 +65,11 @@ export default function Home() {
           "isPrivate": isPrivate,
           "password" : password
         })
-      }).then(res=>res.json())
-      .then(data => console.log(data))
-      console.log("Room Created");
+      })
+
+      const response = await res.json()
+
+      console.log(response);
 
     } catch (error) {
       console.log("Error creating room: ", error)
