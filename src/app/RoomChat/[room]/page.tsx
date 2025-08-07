@@ -65,8 +65,8 @@ export default function RoomChat({params} : Props){
             <button onClick={sendMessage}>Send message</button>
             <h1 className="text-2xl">Messages</h1>
             <div>
-                {messages.map((m, i) => (
-                  <p key={i}>{m}</p>
+                {messages.map((msg, i) => (
+                  <p key={i}>{msg}</p>
                 ))}
             </div>
         </div>
